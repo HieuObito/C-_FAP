@@ -1,0 +1,48 @@
+﻿@using Prn231_FinalProject.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var student = ViewBag.Student as Student;
+}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>My Profile</h1>
+    </header>
+
+    <main>
+        <section class="container">
+            <div class="profile card">
+                <img src="profile-pic.jpg" alt="Profile Picture" class="card-img-top">
+                <div class="card-body">
+                    <h2 class="card-title">John Doe</h2>
+                    <h3 class="card-subtitle">Web Developer</h3>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor tortor in neque varius, ut aliquet nunc cursus. Integer pulvinar est a nisi condimentum sagittis. Donec condimentum leo id rutrum tempus. Sed bibendum gravida metus, sed facilisis tellus interdum eu. Aliquam non luctus libero, ac tempor sem. Proin venenatis tempus tincidunt.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><strong>Email:</strong> john.doe@example.com</li>
+                        <li><strong>Phone:</strong> (123) 456-7890</li>
+                        <li><strong>Website:</strong> www.example.com</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 My Profile. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

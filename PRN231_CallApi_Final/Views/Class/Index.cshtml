@@ -1,0 +1,265 @@
+﻿@using Prn231_FinalProject.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    var weekDays = ViewBag.WeekDays  as List<WeekDay>;
+    var timeFrom = ViewBag.TimeFrom;
+    var timeTo = ViewBag.TimeTo;
+}
+<!DOCTYPE html>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<html>
+<head>
+    <title>Bảng thời khóa biểu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .table-wrap {
+            max-width: 800px;
+            margin: 80px auto;
+            overflow-x: auto;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+            text-align: left;
+            font-size: 18px;
+            text-transform: capitalize;
+        }
+
+        th {
+            background: #6B90DA;
+            color: black;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 15px;
+            white-space: nowrap;
+        }
+
+        table tbody tr:nth-child(odd) {
+        }
+
+        .box-wrap {
+            padding: 0px 16px;
+        }
+        /*# sourceMappingURL=main.css.map */
+    </style>
+</head>
+<body>
+    <h1>View Schedule</h1>
+@*    <form asp-action="GetSlotDate" asp-controller="Class" method="post">
+        <input type="number" name="slotId">
+        <input type="hidden" name="numberId" value="1">
+        <button type="submit"></button>
+    </form>*@
+    <table>
+        <tr>
+            <th>
+                <select id="weekSelect" onchange="saveSelectedWeek()"></select>
+            </th>
+            @foreach (var item in weekDays){
+                <th>
+                    @item.DateName
+                    <br />
+                    <span id="date-@item.DateName"></span>
+                </th>
+            }
+        </tr>
+        <tr>
+            <td>
+                Slot 1
+            </td>
+            <td id="11">
+            </td>
+            <td id="12"></td>
+            <td id="13"></td>
+            <td id ="14"></td>
+            <td id="15"></td>
+            <td id="16"></td>
+            <td id="17"></td>
+        </tr>
+        <tr>
+            <td>
+                Slot 2
+            </td>
+            <td id="21"></td>
+            <td id="22"></td>
+            <td id="23"></td>
+            <td id ="24"></td>
+            <td id="25"></td>
+           <td id="26"></td>
+            <td id="27"></td>
+        </tr>
+        <tr>
+            <td>
+                Slot 3
+            </td>
+            <td id="31"></td>
+            <td id="32"></td>
+            <td id="33"></td>
+            <td id="34"></td>
+            <td id="35"></td>
+            <td id="36"></td>
+            <td id="37"></td>
+        </tr>
+        <tr>
+            <td>
+                Slot 4
+            </td>
+            <td id="41"></td>
+            <td id="42"></td>
+            <td id="43"></td>
+            <td id ="44"></td>
+            <td id="45"></td>
+           <td id="46"></td>
+            <td id="47"></td>
+        </tr>
+        <tr>
+            <td>
+                Slot 5
+            </td>
+            <td id="51"></td>
+            <td id="52"></td>
+            <td id="53"></td>
+            <td id="54"></td>
+            <td id="55"></td>
+            <td id="56"></td>
+            <td id="57"></td>
+        </tr>
+        <tr>
+            <td>
+                Slot 6
+            </td>
+            <td id="61"></td>
+            <td id="62"></td>
+            <td id="63"></td>
+            <td id="64"></td>
+            <td id="65"></td>
+            <td id="66"></td>
+            <td id="67"></td>
+        </tr>
+        <!-- Thêm các hàng khác tương tự -->
+    </table>
+    <input type="number"name="SlotId"></input>
+</body>
+</html>
+
+<script>
+    var select = document.getElementById("weekSelect");
+
+    // Kiểm tra xem đã có giá trị được lưu trong Local Storage chưa
+    var savedWeek = localStorage.getItem("selectedWeek");
+    if (savedWeek) {
+        select.value = savedWeek;
+    }
+
+    select.addEventListener("change", function () {
+        var selectedWeek = select.value;
+        localStorage.setItem("selectedWeek", selectedWeek);
+        updateSchedule();
+    });
+
+    var startDate = new Date("2023-01-02");
+    var endDate = new Date("2023-12-31");
+
+    while (startDate <= endDate) {
+        var weekEndDate = new Date(startDate.getTime() + 6 * 24 * 60 * 60 * 1000);
+        var option = document.createElement("option");
+        option.value = startDate.toISOString();
+        option.text = formatDate(startDate) + " - " + formatDate(weekEndDate);
+        select.appendChild(option);
+
+        startDate = new Date(weekEndDate.getTime() + 1 * 24 * 60 * 60 * 1000);
+    }
+
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        return ("0" + day).slice(-2) + "/" + ("0" + month).slice(-2);
+    }
+
+    var slotDates = @Html.Raw(Json.Serialize(ViewBag.SlotDate));
+    var sub = @Html.Raw(Json.Serialize(ViewBag.Subject));
+    var classId = @Html.Raw(Json.Serialize(ViewBag.ClassId));
+    var dateFrom = new Date("@timeFrom");
+    var dateTo = new Date("@timeTo");
+    var select = document.getElementById("weekSelect");
+
+    // Tìm vị trí của tuần hiện tại trong danh sách các tuần
+    var today = new Date();
+    var weekIndex = Math.floor((today - startDate) / (7 * 24 * 60 * 60 * 1000));
+    if (weekIndex < 0) {
+        // If the current date is before the start date, select the first week
+        weekIndex = 0;
+    } else if (weekIndex >= select.options.length) {
+        // If the current date is after the end date, select the last week
+        weekIndex = select.options.length - 1;
+    }
+
+    // Đặt giá trị cho thuộc tính "value" của phần tử <select>
+    select.value = select.options[weekIndex].value;
+
+    function updateSchedule() {
+        var selectedWeek = new Date(select.value);
+        var selectedWeekEndDate = new Date(selectedWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
+
+        for (var i = 0; i < slotDates.length; i++) {
+            var slotDate = slotDates[i];
+            var slotId = slotDate.slot.slotId;
+            var dateId = slotDate.date.dateId;
+
+            if (selectedWeek >= dateFrom && selectedWeekEndDate <= dateTo) {
+                console.log(selectedWeek);
+                var subjectCode = sub.subjectCode.toString();
+                var timeFrom = slotDate.slot.timeFrom.slice(0,-3);
+                var timeTo = slotDate.slot.timeTo.slice(0, -3);
+                console.log(timeFrom);
+                console.log(timeTo);
+                var content = "<a href='/Class/GetClassId?classId=" + classId + "'>" + subjectCode + "</a><br>(" + "<span class='time'>" + timeFrom + "</span>" + "-" + "<span class='time'>" + timeTo + "</span>" + ")";
+                var x = ` <form action="/Class/GetSlotDate" method="POST">
+            <input type="number" name="slotId">
+            <input type="hidden" name="numberId" value="${dateId}">
+            <button type="submit"></button>
+         </form>`;
+
+                var combinedContent = content + x;
+                $("#" + slotId + dateId).html(combinedContent);
+                $("#" + slotId + dateId + " .time").css("color", "green");
+            } else {
+                $("#" + slotId + dateId).html("");
+            }
+        }
+    }
+
+    // Select the week corresponding to the current date
+    var today = new Date();
+    var currentWeekStartDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+    var currentWeekEndDate = new Date(currentWeekStartDate.getTime() + 6 * 24 * 60 * 60 * 1000);
+    var currentWeekOption = Array.from(select.options).find(function (option) {
+        var optionStartDate = new Date(option.value);
+        var optionEndDate = new Date(optionStartDate.getTime() + 6 * 24 * 60 * 60 * 1000);
+        return today >= optionStartDate && today <= optionEndDate;
+    });
+
+    if (currentWeekOption) {
+        select.value = currentWeekOption.value;
+    }
+
+    // Khởi tạo lịch ban đầu
+    updateSchedule();
+</script>
+
+

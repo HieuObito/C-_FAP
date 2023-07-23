@@ -1,0 +1,36 @@
+﻿@using Prn231_FinalProject.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model Class
+@{
+    var timeTo = ViewBag.Class;
+}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .class-info {
+      margin-bottom: 20px;
+    }
+    .class-code {
+      font-weight: bold;
+    }
+    .class-time {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="class-info">
+            <a href="/Class/StudentInClass?classId=@Model.ClassId" class="class-code">@Model.ClassName</a>
+      <br>
+                <span>Mentor: @Model.Mentor.MentorName</span>
+                <br>
+            <span>Subject: @Model.Subject.SubjectCode</span>
+    </div>
+
+    <!-- Add more class-info divs as needed -->
+  </div>
+</body>
+</html>

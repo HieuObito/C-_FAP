@@ -1,0 +1,52 @@
+﻿@using Prn231_FinalProject.Models
+@using System.Text.Json;
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Account user = Context.Session.GetString("User") != null ?
+    JsonSerializer.Deserialize<Account>(Context.Session.GetString("User")) : null;
+}
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<html>
+<link href="~/css/home.css" rel="stylesheet" />
+<div class="button-group" id="thirdDimension">
+    <h3 style="font-size:36px; font-weight:bolder;color:black">
+        FPT University Academic Portal<h3>
+            <div class="button"> <span class="glyphicon glyphicon-headphones"></span> <a href="/Student/Index">Profile</a></div>
+            <div class="button prev"> <span class="glyphicon glyphicon-credit-card"></span> <a href="/Class/Index?studentId=@user.AccountId"> School calendar</a></div>
+            <div class="button active"> <span class="glyphicon glyphicon-cutlery"></span> <a href="/Subject/Index"> Add Class</div>
+</div>
+
+
+
+</html>
+<script>
+    $(document).ready(function() {
+  buttonClick('#redBlack');
+  buttonClick('#orange');
+  buttonClick('#POP');
+  buttonClickPN('#thirdDimension')
+})
+
+function buttonClick(string) {
+  $(string).find(".button").click(function() {
+    if (!$(this).hasClass('active')) {
+      $(string + ' .active').removeClass('active');
+      $(this).addClass('active');
+    }
+  })
+}
+
+function buttonClickPN(string) {
+  $(string).find(".button").click(function() {
+    if (!$(this).hasClass('active')) {
+      $(string + ' .active').removeClass('active');
+      $(string + ' .prev').removeClass('prev');
+      $(string + ' .next').removeClass('next');
+      $(this).addClass('active');
+      $(this).prev().addClass('prev');
+      $(this).next().addClass('next');
+    }
+  })
+}
+</script>

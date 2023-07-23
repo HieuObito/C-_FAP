@@ -1,0 +1,199 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 100;
+}
+
+.button-group {
+    margin: 100px auto;
+    width: 600px;
+    margin-bottom: 30px;
+}
+
+    .button-group h3 {
+        color: #999;
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+#redBlack .button {
+    background: linear-gradient(135deg, #292929, #191919);
+    border: none;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+    display: inline-block;
+    margin: -4px;
+    color: #F2070B;
+    font-size: 14px;
+    text-align: left;
+    text-shadow: 0 0 10px rgba(181, 26, 30, 0.4);
+    box-shadow: 0px 10px 30px rgba(28, 28, 28, 0.9);
+}
+
+    #redBlack .button span {
+        text-align: center;
+        margin: 20px 0 20px 0;
+        display: block;
+        color: #fff;
+        font-size: 32px;
+        text-shadow: none;
+    }
+
+    #redBlack .button:hover {
+        background: linear-gradient(-45deg, #292929, #191919);
+    }
+
+    #redBlack .button.active {
+        background: #B51A1E;
+        color: #fff;
+        box-shadow: inset 0px 0px 30px rgba(28, 28, 28, 0.9);
+    }
+
+#orange .button {
+    background: #F25824;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+    display: inline-block;
+    margin: 0 -3px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(181, 26, 30, 0.4);
+    box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.9), 0px 10px 10px 0 rgba(111, 111, 111, 0.4);
+}
+
+    #orange .button span {
+        text-align: center;
+        margin: 10px 0 20px 0;
+        display: block;
+        font-size: 32px;
+        text-shadow: none;
+    }
+
+    #orange .button:hover {
+        background: #CA4B1E;
+    }
+
+    #orange .button.active {
+        text-shadow: 0 0 10px #fff;
+        color: #fff;
+        box-shadow: inset 0px 15px 15px 5px rgba(162, 63, 24, 0.9);
+    }
+
+#thirdDimension .button {
+    background: linear-gradient(135deg, #39414E, #4C5363);
+    border: none;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+    display: inline-block;
+    margin: 0 -2px 30px -3px;
+    color: #F89B72;
+    font-size: 14px;
+    box-shadow: 0px 2px 15px #323A45;
+    position: relative;
+}
+
+    #thirdDimension .button span {
+        text-align: center;
+        margin: 20px 0 20px 0;
+        display: block;
+        color: #fff;
+        text-shadow: 0 2px 30px #323A45;
+        font-size: 32px;
+    }
+
+    #thirdDimension .button:hover {
+        background: linear-gradient(135deg, #4C5363, #39414E);
+    }
+
+    #thirdDimension .button.active {
+        font-size: 14px;
+        text-shadow: 0 0 10px #fff;
+        color: #fff;
+        height: 100px;
+        vertical-align: bottom;
+    }
+
+    #thirdDimension .button.next:before {
+        content: '';
+        position: absolute;
+        z-index: 11;
+        left: -25px;
+        top: 0px;
+        line-height: 90px;
+        border-bottom: 20px solid #323A45;
+        border-left: 25px solid transparent;
+    }
+
+    #thirdDimension .button.next:after {
+        content: '';
+        position: absolute;
+        z-index: 11;
+        left: -25px;
+        top: 20px;
+        line-height: 90px;
+        border-top: 100px solid #323A45;
+        border-left: 25px solid transparent;
+    }
+
+    #thirdDimension .button.prev:before {
+        content: '';
+        position: absolute;
+        z-index: 11;
+        left: 100%;
+        top: 20px;
+        line-height: 90px;
+        border-top: 100px solid;
+        border-right: 25px solid transparent;
+    }
+
+    #thirdDimension .button.prev:after {
+        content: '';
+        position: absolute;
+        z-index: 11;
+        left: 100%;
+        top: 0px;
+        line-height: 90px;
+        border-bottom: 20px solid;
+        border-right: 25px solid transparent;
+    }
+
+#POP .button {
+    background: #EBE9EA;
+    border: none;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+    display: inline-block;
+    margin: -2px;
+    color: #6C68B4;
+    font-size: 16px;
+    text-align: right;
+}
+
+    #POP .button span {
+        text-align: center;
+        margin: 20px 0 0 -30px;
+        display: block;
+        font-size: 54px;
+        text-shadow: none;
+    }
+
+    #POP .button:hover {
+        background: #6C68B4;
+        color: #fff;
+    }
+
+    #POP .button.active {
+        text-shadow: 0 0 10px rgba(181, 26, 30, 0.4);
+        background: #6C68B4;
+        color: #fff;
+        transform: translate(10px, -10px);
+        z-index: 100;
+        box-shadow: -8px 8px 0px 2px rgba(28, 28, 28, 0.3);
+    }
